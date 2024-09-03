@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Interaction {
+  id        String   @id @unique
+  name      String
+  createdAt DateTime @default(now())
+
+  @@map("interactions")
+}
+
+model User {
+  id          String           @id @unique
+  description String           @default("My cool description")
+  economy     Economy?
+  badges      UserBadge[]
+  backgrounds UserBackground[]
+
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model Economy {
+  id     String @id @unique @default(uuid())
+  userId String @unique
+  money  Float  @default(0)
+  debit  Float  @default(1000)
+  credit Float  @default(0)
+  level  Int    @default(0)
+  xp     Float  @default(0)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("economies")
+}
+
+model Badge {
+  id   String @id @unique @default(uuid())
+  name String
+  url  String
+
+  users UserBadge[]
+
+  createdAt DateTime @default(now())
+
+  @@map("badges")
+}
+
+model UserBadge {
+  userId  String @unique @map("user_id")
+  badgeId String @unique @map("badge_id")
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeId], references: [id])
+
+  @@id([userId, badgeId])
+  @@map("user_badges")
+}
+
+model Background {
+  id   String @id @unique @default(uuid())
+  name String
+  url  String
+
+  users UserBackground[]
+
+  createdAt DateTime @default(now())
+
+  @@map("backgrounds")
+}
+
+model UserBackground {
+  userId       String @unique @map("user_id")
+  backgroundId String @unique @map("background_id")
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  background Background @relation(fields: [backgroundId], references: [id])
+
+  @@id([userId, backgroundId])
+  @@map("user_backgrounds")
+}

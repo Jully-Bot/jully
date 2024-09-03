@@ -1,0 +1,44 @@
+{
+  "name": "ocsa-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx --env-file .env ./src/index.ts",
+    "dev": "tsx --env-file .env --watch ./src/index.ts",
+    "format": "yarn biome format --write ./src/",
+    "lint": "yarn biome lint --write ./src/",
+    "check": "yarn biome check --write ./src/",
+    "build": "tsc ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@types/decompress": "^4.2.7",
+    "@types/dockerode": "^3.3.31",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^22.5.0",
+    "@types/node-fetch": "^2.6.11",
+    "@types/prismjs": "^1.26.4",
+    "prisma": "^5.18.0",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.3",
+    "tsup": "^8.2.4",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.54",
+    "@prisma/client": "5.19.1",
+    "decompress": "^4.2.1",
+    "discord.js": "^14.15.3",
+    "dockerode": "^4.0.2",
+    "dotenv": "^16.4.5",
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.3.2",
+    "prismjs": "^1.29.0",
+    "reflect-metadata": "^0.2.2"
+  }
+}
